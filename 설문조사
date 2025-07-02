@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>좋아하는 음식에 대한 과한 설문조사</title>
+  <style>
+    body {
+      font-family: 'Pretendard', sans-serif;
+      background-color: #fffbe6;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #ff6f00;
+      margin-bottom: 10px;
+    }
+    p.description {
+      text-align: center;
+      color: #555;
+      margin-bottom: 30px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 6px;
+    }
+    input[type="text"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    input[type="checkbox"],
+    input[type="radio"] {
+      margin-right: 8px;
+    }
+    button {
+      padding: 12px 24px;
+      background-color: #ff6f00;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      display: block;
+      margin: 30px auto 0;
+    }
+    button:hover {
+      background-color: #e55b00;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>좋아하는 음식에 대한 과한 설문조사</h1>
+    <p class="description">여러분의 음식 취향을 과하게(!) 조사해보겠습니다 🍜🍕🍣</p>
+    
+    <form>
+      <div class="form-group">
+        <label for="name">이름(또는 닉네임)</label>
+        <input type="text" id="name" name="name" placeholder="김민규 or 꽃돼지러버" required />
+      </div>
+
+      <div class="form-group">
+        <label>가장 좋아하는 음식 종류는? (한 가지만!)</label>
+        <select name="favoriteCategory">
+          <option value="">-- 선택하세요 --</option>
+          <option value="korean">한식</option>
+          <option value="japanese">일식</option>
+          <option value="chinese">중식</option>
+          <option value="western">양식</option>
+          <option value="dessert">디저트</option>
+          <option value="weird">희귀/기묘한 음식</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>일주일 내내 한 가지만 먹는다면?</label>
+        <input type="radio" name="onedish" value="삼겹살" /> 삼겹살
+        <input type="radio" name="onedish" value="떡볶이" /> 떡볶이
+        <input type="radio" name="onedish" value="치킨" /> 치킨
+        <input type="radio" name="onedish" value="초밥" /> 초밥
+        <input type="radio" name="onedish" value="라면" /> 라면
+      </div>
+
+      <div class="form-group">
+        <label>좋아하는 음식 스타일 (중복 선택 가능)</label>
+        <input type="checkbox" name="style" value="매운" /> 매운 음식
+        <input type="checkbox" name="style" value="달달한" /> 달달한 음식
+        <input type="checkbox" name="style" value="기름진" /> 기름진 음식
+        <input type="checkbox" name="style" value="담백한" /> 담백한 음식
+        <input type="checkbox" name="style" value="치즈폭탄" /> 치즈폭탄 스타일
+        <input type="checkbox" name="style" value="모든음식" /> 그냥 다 좋아요
+      </div>
+
+      <div class="form-group">
+        <label>가장 싫어하는 음식은?</label>
+        <input type="text" name="hateFood" placeholder="예: 고수, 번데기, 멜론 등" />
+      </div>
+
+      <div class="form-group">
+        <label>음식을 위해 가장 해본 극단적인 행동은?</label>
+        <textarea name="crazyStory" rows="4" placeholder="예: 새벽 3시에 버스를 타고 본점까지 갔다."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>당신의 인생 음식 명대사 한 줄</label>
+        <input type="text" name="foodQuote" placeholder="예: 치킨은 배신하지 않는다." />
+      </div>
+
+      <button type="submit">제출하기 🍽️</button>
+    </form>
+  </div>
+
+</body>
+</html>
