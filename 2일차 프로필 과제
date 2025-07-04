@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>프로필 페이지</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #e0f7fa, #ffffff); /* 배경에 그라데이션 추가 */
+      margin: 0;
+      padding: 0;
+    }
+
+    .profile-container {
+      max-width: 600px;
+      margin: 60px auto;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      text-align: center;
+      padding: 40px 30px;
+      transition: transform 0.3s ease;
+    }
+
+    .profile-container:hover {
+      transform: translateY(-5px); /* 컨테이너도 약간 떠오르도록 */
+    }
+
+    .profile-image {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 25px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease;
+    }
+
+    .profile-image:hover {
+      transform: scale(1.05);
+    }
+
+    .name {
+      font-size: 32px;
+      font-weight: 800;
+      margin: 10px 0;
+      color: #2c3e50;
+    }
+
+    .bio {
+      font-size: 18px;
+      color: #444;
+      margin-bottom: 25px;
+      font-style: italic;
+    }
+
+    .contact-info {
+      font-size: 15px;
+      color: #666;
+      line-height: 1.8;
+    }
+
+    .contact-info a {
+      color: #1e88e5;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.2s;
+    }
+
+    .contact-info a:hover {
+      color: #1565c0;
+      text-decoration: underline;
+    }
+
+    .edit-button {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 12px 28px;
+      background-color: #1e88e5;
+      color: white;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(30, 136, 229, 0.3);
+    }
+
+    .edit-button:hover {
+      background-color: #0d47a1;
+      transform: scale(1.05);
+      box-shadow: 0 6px 18px rgba(13, 71, 161, 0.4);
+    }
+
+    @media (max-width: 400px) {
+      .profile-container {
+        padding: 25px 20px;
+      }
+
+      .name {
+        font-size: 26px;
+      }
+
+      .bio {
+        font-size: 16px;
+      }
+
+      .contact-info {
+        font-size: 13px;
+      }
+
+      .edit-button {
+        font-size: 14px;
+        padding: 10px 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="profile-container">
+    <img src="https://via.placeholder.com/150" alt="프로필 이미지 준비중" class="profile-image" />
+    <div class="name">김민규</div>
+    <div class="bio">안녕하세요! HTML 정말 재미있어요 😄</div>
+    <div class="contact-info">
+      📧 이메일: qweaiiok4781@example.com<br />
+      📱 전화번호: 010-4771-8614<br />
+      🌐 웹사이트: <a href="https://github.com/kmg171/HTML-" target="_blank">김민규 github</a>
+    </div>
+    <button class="edit-button">✏️ 프로필 수정</button>
+  </div>
+
+</body>
+</html>
