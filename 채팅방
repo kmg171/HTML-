@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>나만의 채팅방 설문</title>
+  <style>
+    /* 기본 스타일 */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f2f5;
+      margin: 0;
+      padding: 20px;
+    }
+
+    /* 설문칸 컨테이너 */
+    .survey-container {
+      max-width: 600px;
+      margin: 30px auto;
+      background: #fff;
+      padding: 25px 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .survey-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .question {
+      margin-bottom: 18px;
+      position: relative;
+    }
+
+    .question > label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #555;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border-color 0.3s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    textarea:focus,
+    select:focus {
+      border-color: #4a90e2;
+      outline: none;
+    }
+
+    /* 옵션들 (라디오, 체크박스) 컨테이너 */
+    .options {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    /* 라벨 스타일 및 체크박스/라디오 위치 조정 */
+    .options label {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      cursor: pointer;
+      padding-left: 30px; /* 체크박스/라디오 공간 확보 */
+      user-select: none;
+      font-size: 16px;
+    }
+
+    /* 실제 input 숨기기 */
+    .options input[type="checkbox"],
+    .options input[type="radio"] {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      margin: 0;
+      padding: 0;
+      opacity: 0;
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    /* 커스텀 체크박스/라디오 박스 */
+    .options label::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      border: 2px solid #aaa;
+      background: #fff;
+      box-sizing: border-box;
+      transition: border-color 0.3s;
+      z-index: 1;
+      border-radius: 50%; /* 기본은 라디오 원형 */
+    }
+
+    /* 체크박스는 네모 모양으로 */
+    .options.checkbox label::before {
+      border-radius: 4px;
+    }
+
+    /* 체크 시 색 변경 */
+    .options input[type="radio"]:checked + label::before,
+    .options.checkbox input[type="checkbox"]:checked + label::before {
+      border-color: #4a90e2;
+      background: #4a90e2;
+    }
+
+    /* 홀수번째 질문 배경색 */
+    .question:nth-child(odd) {
+      background: #fafafa;
+      padding: 12px 15px;
+      border-radius: 8px;
+    }
+
+    /* 제출 버튼 */
+    .submit-btn {
+      display: block;
+      margin: 30px auto 0;
+      background-color: #4a90e2;
+      color: white;
+      font-weight: 700;
+      border: none;
+      padding: 14px 30px;
+      font-size: 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      position: relative;
+      z-index: 10;
+    }
+
+    .submit-btn:hover {
+      background-color: #357ABD;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="survey-container">
+    <div class="survey-title">나만의 채팅방 설문</div>
+
+    <div class="question">
+      <label for="username">닉네임을 입력해주세요</label>
+      <input type="text" id="username" name="username" placeholder="예: 민규김" />
+    </div>
+
+    <div class="question">
+      <label for="age">나이를 선택해주세요</label>
+      <select id="age" name="age">
+        <option value="">선택하세요</option>
+        <option value="10대">10대</option>
+        <option value="20대">20대</option>
+        <option value="30대">30대</option>
+        <option value="40대 이상">40대 이상</option>
+      </select>
+    </div>
+
+    <div class="question">
+      <label>좋아하는 채팅 주제는?</label>
+      <div class="options">
+        <input type="radio" id="topic1" name="topic" value="게임" />
+        <label for="topic1">게임</label>
+
+        <input type="radio" id="topic2" name="topic" value="음악" />
+        <label for="topic2">음악</label>
+
+        <input type="radio" id="topic3" name="topic" value="영화" />
+        <label for="topic3">영화</label>
+
+        <input type="radio" id="topic4" name="topic" value="기타" />
+        <label for="topic4">기타</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <label>채팅방에서 하고 싶은 활동을 골라주세요 (복수 선택 가능)</label>
+      <div class="options checkbox">
+        <input type="checkbox" id="activity1" name="activity" value="대화" />
+        <label for="activity1">대화</label>
+
+        <input type="checkbox" id="activity2" name="activity" value="게임" />
+        <label for="activity2">게임</label>
+
+        <input type="checkbox" id="activity3" name="activity" value="공유" />
+        <label for="activity3">정보 공유</label>
+
+        <input type="checkbox" id="activity4" name="activity" value="모임" />
+        <label for="activity4">오프라인 모임</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <label for="comment">채팅방에 바라는 점이나 의견을 자유롭게 적어주세요</label>
+      <textarea id="comment" name="comment" rows="4" placeholder="예: 활발한 분위기 좋아요"></textarea>
+    </div>
+
+    <button class="submit-btn" type="submit">제출하기</button>
+  </div>
+
+</body>
+</html>
