@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <title>Admin Page</title>
+  <style>
+    body.dark-mode {
+      background-color: #121212;
+      color: #f0f0f0;
+    }
+    .dark-mode .table,
+    .dark-mode .modal-content {
+      background-color: #1e1e1e;
+      color: #f0f0f0;
+    }
+    .dark-mode .table thead {
+      background-color: #2c2c2c;
+    }
+    .dark-mode .btn-light,
+    .dark-mode .form-control,
+    .dark-mode .form-select {
+      background-color: #2c2c2c;
+      color: #f0f0f0;
+      border: 1px solid #555;
+    }
+    .dark-mode .dropdown-menu {
+      background-color: #2c2c2c;
+      color: #f0f0f0;
+    }
+    .dark-mode .dropdown-item:hover {
+      background-color: #444;
+    }
+    .dark-mode .page-link,
+    .dark-mode .btn-primary {
+      background-color: #3a3a3a;
+      color: #f0f0f0;
+      border-color: #777;
+    }
+
+    /* 중앙 하단 고정 회원가입 버튼 */
+    .signup-fixed-btn {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1050;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-3">
+    <!-- 상단: 제목 및 다크모드 토글 + 시계 -->
+    <div class="d-flex justify-content-between align-items-center">
+      <h3 class="mt-5 mb-3">신규 등록 상품</h3>
+      <div class="text-end">
+        <div id="dateTimeDisplay" class="text-muted mb-2"></div>
+        <button class="btn btn-outline-secondary btn-sm mb-1" onclick="toggleDarkMode()">다크모드</button>
+      </div>
+    </div>
+
+    <!-- 카테고리 + 성별 + 검색 -->
+    <div class="row mb-3 align-items-center">
+      <div class="col-md-3">
+        <div class="dropdown">
+          <button class="btn btn-light w-100 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            카테고리
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#" onclick="filterByCategory('')">전체</a></li>
+            <li><a class="dropdown-item" href="#" onclick="filterByCategory('상의')">상의</a></li>
+            <li><a class="dropdown-item" href="#" onclick="filterByCategory('하의')">하의</a></li>
+            <li><a class="dropdown-item" href="#" onclick="filterByCategory('신발')">신발</a></li>
+            <li><a class="dropdown-item" href="#" onclick="filterByCategory('패션잡화')">패션잡화</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <select class="form-select" id="genderSelector">
+          <option value="">전체 성별</option>
+          <option value="남성">남성</option>
+          <option value="여성">여성</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="제품명을 입력해주세요" id="searchInput" />
+          <button class="btn btn-primary" type="button" onclick="searchProduct()">조회</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 상품 테이블 -->
+    <table class="table table-sm table-bordered text-center align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>카테고리</th>
+          <th>브랜드</th>
+          <th>상품명</th>
+          <th>가격</th>
+        </tr>
+      </thead>
+      <tbody id="product_data_Table"></tbody>
+    </table>
+
+    <!-- 페이지네이션 -->
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- 회원가입 버튼 (하단 고정) -->
+  <button
+    class="btn btn-primary signup-fixed-btn"
+    data-bs-toggle="modal"
+    data-bs-target="#signupModal"
+  >
+    회원가입
+  </button>
+
+  <!-- 회원가입 모달 -->
+  <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form>
+          <div class="modal-header">
+            <h5 class="modal-title" id="signupModalLabel">회원가입</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="닫기"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="nameInput" class="form-label">이름</label>
+              <input type="text" class="form-control" id="nameInput" required />
+            </div>
+            <div class="mb-3">
+              <label for="emailInput" class="form-label">이메일</label>
+              <input type="email" class="form-control" id="emailInput" required />
+            </div>
+            <div class="mb-3">
+              <label for="passwordInput" class="form-label">비밀번호</label>
+              <input type="password" class="form-control" id="passwordInput" required />
+            </div>
+            <div class="mb-3">
+              <label for="signupGender" class="form-label">성별</label>
+              <select class="form-select" id="signupGender">
+                <option value="">선택</option>
+                <option value="남성">남성</option>
+                <option value="여성">여성</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">가입하기</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 스크립트 -->
+  <script>
+    const product_data = [
+      { category: "상의", brand: "Supreme", product: "슈프림 박스로고 후드티", price: "390,000" },
+      { category: "하의", brand: "DIESEL", product: "디젤 트랙 팬츠", price: "188,000" },
+      { category: "신발", brand: "Nike", product: "에어포스 1", price: "137,000" },
+      { category: "패션잡화", brand: "Music&Goods", product: "빵빵이 키링", price: "29,000" },
+    ];
+
+    const product_data_Table = document.getElementById("product_data_Table");
+
+    function renderTable(data) {
+      product_data_Table.innerHTML = "";
+      data.forEach((item) => {
+        const row = product_data_Table.insertRow();
+        row.insertCell(0).innerText = item.category;
+        row.insertCell(1).innerText = item.brand;
+        row.insertCell(2).innerText = item.product;
+        row.insertCell(3).innerText = item.price;
+      });
+    }
+
+    function filterByCategory(category) {
+      const filtered = category ? product_data.filter(p => p.category === category) : product_data;
+      renderTable(filtered);
+    }
+
+    function searchProduct() {
+      const keyword = document.getElementById("searchInput").value.trim();
+      const filtered = product_data.filter(p =>
+        p.product.includes(keyword) || p.brand.includes(keyword)
+      );
+      renderTable(filtered);
+    }
+
+    function updateDateTime() {
+      const now = new Date();
+      const y = now.getFullYear();
+      const m = String(now.getMonth() + 1).padStart(2, "0");
+      const d = String(now.getDate()).padStart(2, "0");
+      const h = String(now.getHours()).padStart(2, "0");
+      const min = String(now.getMinutes()).padStart(2, "0");
+      const s = String(now.getSeconds()).padStart(2, "0");
+      document.getElementById("dateTimeDisplay").innerText = `현재 시각: ${y}-${m}-${d} ${h}:${min}:${s}`;
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark-mode");
+      localStorage.setItem("darkMode", document.body.classList.contains("dark-mode") ? "on" : "off");
+    }
+
+    function applyStoredTheme() {
+      if (localStorage.getItem("darkMode") === "on") {
+        document.body.classList.add("dark-mode");
+      }
+    }
+
+    applyStoredTheme();
+    renderTable(product_data);
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
